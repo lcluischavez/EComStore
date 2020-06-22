@@ -19,6 +19,7 @@ namespace EStore.Models
         public string LastName { get; set; }
         public string City { get; set; }
         public string Address { get; set; }
+        public string State { get; set; }
         public bool IsAdmin { get; set; }
         public List<Product> Products { get; set; }
         public virtual List<Order> Orders { get; set; }
