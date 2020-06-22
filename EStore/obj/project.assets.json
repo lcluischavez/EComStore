@@ -8604,11 +8604,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Luis Chavez\\source\\repos\\EStore\\EStore\\EStore.csproj",
+      "projectUniqueName": "C:\\Users\\Luis Chavez\\Desktop\\workspace\\EStore\\EStore\\EStore.csproj",
       "projectName": "EStore",
-      "projectPath": "C:\\Users\\Luis Chavez\\source\\repos\\EStore\\EStore\\EStore.csproj",
+      "projectPath": "C:\\Users\\Luis Chavez\\Desktop\\workspace\\EStore\\EStore\\EStore.csproj",
       "packagesPath": "C:\\Users\\Luis Chavez\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Luis Chavez\\source\\repos\\EStore\\EStore\\obj\\",
+      "outputPath": "C:\\Users\\Luis Chavez\\Desktop\\workspace\\EStore\\EStore\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Luis Chavez\\AppData\\Roaming\\NuGet\\NuGet.Config",
