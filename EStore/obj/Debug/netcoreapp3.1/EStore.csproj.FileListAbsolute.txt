@@ -348,6 +348,13 @@ C:\Users\Luis Chavez\Desktop\workspace\EStore\EStore\obj\Debug\netcoreapp3.1\Raz
 C:\Users\Luis Chavez\Desktop\workspace\EStore\EStore\obj\Debug\netcoreapp3.1\Razor\Views\Products\Details.cshtml.g.cs
 C:\Users\Luis Chavez\Desktop\workspace\EStore\EStore\obj\Debug\netcoreapp3.1\Razor\Views\Products\Edit.cshtml.g.cs
 C:\Users\Luis Chavez\Desktop\workspace\EStore\EStore\obj\Debug\netcoreapp3.1\Razor\Views\Products\Index.cshtml.g.cs
+<<<<<<< HEAD
+C:\Users\Luis Chavez\Desktop\workspace\EStore\EStore\obj\Debug\netcoreapp3.1\Razor\Views\Orders\Create.cshtml.g.cs
+C:\Users\Luis Chavez\Desktop\workspace\EStore\EStore\obj\Debug\netcoreapp3.1\Razor\Views\Orders\Delete.cshtml.g.cs
+C:\Users\Luis Chavez\Desktop\workspace\EStore\EStore\obj\Debug\netcoreapp3.1\Razor\Views\Orders\Details.cshtml.g.cs
+C:\Users\Luis Chavez\Desktop\workspace\EStore\EStore\obj\Debug\netcoreapp3.1\Razor\Views\Orders\Edit.cshtml.g.cs
+C:\Users\Luis Chavez\Desktop\workspace\EStore\EStore\obj\Debug\netcoreapp3.1\Razor\Views\Orders\Index.cshtml.g.cs
+=======
 C:\Users\Coffey\source\repos\EComStore\EStore\bin\Debug\netcoreapp3.1\appsettings.Development.json
 C:\Users\Coffey\source\repos\EComStore\EStore\bin\Debug\netcoreapp3.1\appsettings.json
 C:\Users\Coffey\source\repos\EComStore\EStore\bin\Debug\netcoreapp3.1\Properties\launchSettings.json
@@ -537,3 +544,4 @@ C:\Users\Coffey\source\repos\EComStore\EStore\obj\Debug\netcoreapp3.1\staticweba
 C:\Users\Coffey\source\repos\EComStore\EStore\obj\Debug\netcoreapp3.1\EStore.dll
 C:\Users\Coffey\source\repos\EComStore\EStore\obj\Debug\netcoreapp3.1\EStore.pdb
 C:\Users\Coffey\source\repos\EComStore\EStore\obj\Debug\netcoreapp3.1\EStore.genruntimeconfig.cache
+>>>>>>> master
