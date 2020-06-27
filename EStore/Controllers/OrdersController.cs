@@ -50,13 +50,13 @@ namespace EStore.Controllers
                 .Where(o => o.ApplicationUserId == user.Id && o.OrderId == id)
 
                     .Include(o => o.ApplicationUser)
-                    .Include(o => o.ProductOrder)
+                    .Include(o => o.ChosenProductId)
                         .ThenInclude(po => po.Product)
             .FirstOrDefaultAsync();
             if (incompleteOrder != null)
             {
                 var orderDetailViewModel = new OrderDetailViewModel();
-                orderDetailViewModel.LineItems = incompleteOrder.ProductOrder.GroupBy(po => po.PaintingId)
+                orderDetailViewModel.LineItems = incompleteOrder.ChosenProductId.GroupBy(po => po.PaintingId)
                         .Select(p => new OrderLineItem
                         {
                             Product = p.FirstOrDefault().Product,
@@ -79,11 +79,11 @@ namespace EStore.Controllers
         // POST: Orders/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create(int id, ProductOrder productOrder)
+        public async Task<ActionResult> Create(int id, ChosenProductId productOrder)
         {
             try
             {
-                var selectedProductOrder = _context.ProductOrder.FirstOrDefault(po => po.ProductId != 0);
+                var selectedChosenProductId = _context.ChosenProductId.FirstOrDefault(po => po.ProductId != 0);
                 var user = await GetCurrentUserAsync();
                 var userOrder = _context.Order.FirstOrDefault(o => o.ApplicationUser.Id == user.Id && o.IsComplete == false);
                 var chosenProduct = _context.Product.FirstOrDefault(p => p.ApplicationUserId == user.Id);
@@ -98,12 +98,12 @@ namespace EStore.Controllers
                     _context.Order.Add(newOrder);
                     await _context.SaveChangesAsync();
                     int orderId = newOrder.OrderId;
-                    var newProduct = new ProductOrder
+                    var newProduct = new ChosenProductId
                     {
                         OrderId = orderId,
                         ProductId = id,
                     };
-                    _context.ProductOrder.Add(newProduct);
+                    _context.ChosenProductId.Add(newProduct);
                     await _context.SaveChangesAsync();
                     //if (chosenPainting.IsSold == false)
                     //{
@@ -126,27 +126,27 @@ namespace EStore.Controllers
                     _context.Order.Add(newOrder);
                     await _context.SaveChangesAsync();
                     int orderId = newOrder.OrderId;
-                    var newProduct = new ProductOrder
+                    var newProduct = new ChosenProductId
                     {
                         OrderId = orderId,
                         ProductId = id
 
                     };
-                    _context.ProductOrder.Add(newProduct);
+                    _context.ChosenProductId.Add(newProduct);
                     await _context.SaveChangesAsync();
                     return RedirectToAction("Details", "Orders", new { id = orderId });
                 }
                 else
                 {
-                    var newProductOrder = new ProductOrder
+                    var newChosenProductId = new ChosenProductId
                     {
                         OrderId = userOrder.OrderId,
                         ProductId = id
 
                     };
-                    _context.ProductOrder.Add(newProductOrder);
+                    _context.ChosenProductId.Add(newChosenProductId);
                     await _context.SaveChangesAsync();
-                    return RedirectToAction("Details", "Orders", new { id = newProductOrder.OrderId });
+                    return RedirectToAction("Details", "Orders", new { id = newChosenProductId.OrderId });
                 }
             }
             catch (Exception ex)
@@ -190,7 +190,7 @@ namespace EStore.Controllers
 
 
                     var userCurrentOrder = await _context.Order.Where(o => o.OrderId == id)
-                        .Include(o => o.ProductOrder).ThenInclude(o => o.Product).FirstOrDefaultAsync();
+                        .Include(o => o.ChosenProductId).ThenInclude(o => o.Product).FirstOrDefaultAsync();
 
                     foreach (var p in userCurrentOrder.PaintingOrder)
                     {
@@ -229,10 +229,10 @@ namespace EStore.Controllers
         }
         private async void DeletePaintingOrder(int orderId)
         {
-            var paintingOrders = await _context.ProductOrder.Where(po => po.OrderId == orderId).ToListAsync();
+            var paintingOrders = await _context.ChosenProductId.Where(po => po.OrderId == orderId).ToListAsync();
             foreach (var po in paintingOrders)
             {
-                _context.ProductOrder.Remove(po);
+                _context.ChosenProductId.Remove(po);
             }
         }
 
@@ -252,7 +252,7 @@ namespace EStore.Controllers
                 }
 
 
-                await DeleteProductOrders(order.OrderId);
+                await DeleteChosenProductIds(order.OrderId);
                 _context.Order.Remove(order);
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index", "Products");
@@ -266,10 +266,10 @@ namespace EStore.Controllers
 
         private async Task DeletePaintingOrders(int orderId)
         {
-            var productOrders = await _context.ProductOrder.Where(po => po.OrderId == orderId).ToListAsync();
+            var productOrders = await _context.ChosenProductId.Where(po => po.OrderId == orderId).ToListAsync();
             foreach (var po in productOrders)
             {
-                _context.ProductOrder.Remove(po);
+                _context.ChosenProductId.Remove(po);
             }
         }
 
