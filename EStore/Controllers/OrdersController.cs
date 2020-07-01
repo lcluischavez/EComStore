@@ -56,7 +56,7 @@ namespace EStore.Controllers
             if (incompleteOrder != null)
             {
                 var orderDetailViewModel = new OrderDetailViewModel();
-                orderDetailViewModel.LineItems = incompleteOrder.ProductOrder.GroupBy(po => po.PaintingId)
+                orderDetailViewModel.LineItems = incompleteOrder.ProductOrder.GroupBy(po => po.ProductId)
                         .Select(p => new OrderLineItem
                         {
                             Product = p.FirstOrDefault().Product,
@@ -155,25 +155,7 @@ namespace EStore.Controllers
             }
 
         }
-        // GET: Orders/Edit/5
-        //public async Task<ActionResult> Edit(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    var order = await _context.Order.FindAsync(id);
-        //    if (order == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    ViewData["UserId"] = new SelectList(_context.ApplicationUser, "Id", "Id", order.ApplicationUserId);
-        //    return View(order);
-        //}
-
-        // POST: Orders/Edit/5
+ 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, Order order)
@@ -192,7 +174,7 @@ namespace EStore.Controllers
                     var userCurrentOrder = await _context.Order.Where(o => o.OrderId == id)
                         .Include(o => o.ProductOrder).ThenInclude(o => o.Product).FirstOrDefaultAsync();
 
-                    foreach (var p in userCurrentOrder.PaintingOrder)
+                    foreach (var p in userCurrentOrder.ProductOrder)
                     {
                         if (p.Product.IsSold == false)
                         {
@@ -237,32 +219,32 @@ namespace EStore.Controllers
         }
 
         // POST: Orders/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Delete()
-        {
-            try
-            {
-                var user = await GetCurrentUserAsync();
-                var order = await _context.Order
-                   .Where(o => o.ApplicationUserId == user.Id || user.IsAdmin == true).FirstOrDefaultAsync(o => o.IsComplete == false || user.IsAdmin == true);
-                if (order == null)
-                {
-                    return RedirectToAction("Index", "Products");
-                }
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public async Task<ActionResult> Delete()
+        //{
+        //    try
+        //    {
+        //        var user = await GetCurrentUserAsync();
+        //        var order = await _context.Order
+        //           .Where(o => o.ApplicationUserId == user.Id || user.IsAdmin == true).FirstOrDefaultAsync(o => o.IsComplete == false || user.IsAdmin == true);
+        //        if (order == null)
+        //        {
+        //            return RedirectToAction("Index", "Products");
+        //        }
 
 
-                await DeleteProductOrders(order.OrderId);
-                _context.Order.Remove(order);
-                await _context.SaveChangesAsync();
-                return RedirectToAction("Index", "Products");
-            }
-            catch (Exception ex)
-            {
+        //        await DeleteProductOrders(order.OrderId);
+        //        _context.Order.Remove(order);
+        //        await _context.SaveChangesAsync();
+        //        return RedirectToAction("Index", "Products");
+        //    }
+        //    catch (Exception ex)
+        //    {
 
-                return View();
-            }
-        }
+        //        return View();
+        //    }
+        //}
 
         private async Task DeletePaintingOrders(int orderId)
         {

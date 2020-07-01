@@ -10,10 +10,11 @@ namespace EStore.Models
     public class Order
     {
         [Required]
-        public int Id { get; set; }
+        public int OrderId { get; set; }
         [Required]
         public int ChosenProductId { get; set; }
         public DateTime DateCreated { get; set; }
+        public List<ProductOrder> ProductOrder { get; set; }
         public bool IsComplete { get; set; }
         public string ApplicationUserId { get; set; }
         [Display(Name = "User")]

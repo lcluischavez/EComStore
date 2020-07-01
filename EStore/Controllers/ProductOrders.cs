@@ -51,7 +51,7 @@ namespace EStore.Controllers
                 if (userCurrentOrder != null)
 
                 {
-                    var newPaintingOrder = new ProductOrder
+                    var newProductOrder = new ProductOrder
                     {
                         OrderId = userCurrentOrder.OrderId,
                         ProductId = id,
@@ -67,7 +67,7 @@ namespace EStore.Controllers
                     var newOrder = new Order
                     {
                         ApplicationUserId = user.Id,
-                        DateTime = DateTime.Now
+                        DateCreated = DateTime.Now
                     };
                     _context.Order.Add(newOrder);
                     var newProductOrder = new ProductOrder
