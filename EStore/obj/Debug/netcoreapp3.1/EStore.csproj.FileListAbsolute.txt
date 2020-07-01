@@ -148,7 +148,6 @@ C:\Users\Coffey\source\repos\EComStore\EStore\bin\Debug\netcoreapp3.1\runtimes\w
 C:\Users\Coffey\source\repos\EComStore\EStore\bin\Debug\netcoreapp3.1\runtimes\unix\lib\netcoreapp2.0\System.Runtime.Caching.dll
 C:\Users\Coffey\source\repos\EComStore\EStore\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp2.0\System.Runtime.Caching.dll
 C:\Users\Coffey\source\repos\EComStore\EStore\bin\Debug\netcoreapp3.1\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
-C:\Users\Coffey\source\repos\EComStore\EStore\obj\Debug\netcoreapp3.1\EStore.csprojAssemblyReference.cache
 C:\Users\Coffey\source\repos\EComStore\EStore\obj\Debug\netcoreapp3.1\EStore.csproj.CoreCompileInputs.cache
 C:\Users\Coffey\source\repos\EComStore\EStore\obj\Debug\netcoreapp3.1\EStore.MvcApplicationPartsAssemblyInfo.cs
 C:\Users\Coffey\source\repos\EComStore\EStore\obj\Debug\netcoreapp3.1\EStore.MvcApplicationPartsAssemblyInfo.cache

@@ -11,11 +11,12 @@ namespace EStore.Models
     {
         [Required]
         public int Id { get; set; }
+        public string Name { get; set; }
         public string Description { get; set; }
         [Required]
         public string Quantity { get; set; }
         [Required]
-        public string Cost { get; set; }
+        public double Cost { get; set; }
         public bool IsSold { get; set; }
 
         [Display(Name = "Image Url")]

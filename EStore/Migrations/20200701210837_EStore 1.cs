@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace EStore.Migrations
 {
-    public partial class EStore : Migration
+    public partial class EStore1 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -159,31 +159,10 @@ namespace EStore.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ChosenProduct",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    ProductId = table.Column<int>(nullable: false),
-                    OrderId = table.Column<int>(nullable: false),
-                    ApplicationUserId = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ChosenProduct", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_ChosenProduct_AspNetUsers_ApplicationUserId",
-                        column: x => x.ApplicationUserId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Order",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
+                    OrderId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     ChosenProductId = table.Column<int>(nullable: false),
                     DateCreated = table.Column<DateTime>(nullable: false),
@@ -192,7 +171,7 @@ namespace EStore.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Order", x => x.Id);
+                    table.PrimaryKey("PK_Order", x => x.OrderId);
                     table.ForeignKey(
                         name: "FK_Order_AspNetUsers_ApplicationUserId",
                         column: x => x.ApplicationUserId,
@@ -228,9 +207,11 @@ namespace EStore.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(nullable: true),
                     Description = table.Column<string>(nullable: true),
                     Quantity = table.Column<string>(nullable: false),
-                    Cost = table.Column<string>(nullable: false),
+                    Cost = table.Column<double>(nullable: false),
+                    IsSold = table.Column<bool>(nullable: false),
                     ImagePath = table.Column<string>(nullable: true),
                     ApplicationUserId = table.Column<string>(nullable: true)
                 },
@@ -243,6 +224,32 @@ namespace EStore.Migrations
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ProductOrder",
+                columns: table => new
+                {
+                    ProductOrderId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ProductId = table.Column<int>(nullable: false),
+                    OrderId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ProductOrder", x => x.ProductOrderId);
+                    table.ForeignKey(
+                        name: "FK_ProductOrder_Order_OrderId",
+                        column: x => x.OrderId,
+                        principalTable: "Order",
+                        principalColumn: "OrderId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_ProductOrder_Product_ProductId",
+                        column: x => x.ProductId,
+                        principalTable: "Product",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
@@ -285,11 +292,6 @@ namespace EStore.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ChosenProduct_ApplicationUserId",
-                table: "ChosenProduct",
-                column: "ApplicationUserId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Order_ApplicationUserId",
                 table: "Order",
                 column: "ApplicationUserId");
@@ -303,6 +305,16 @@ namespace EStore.Migrations
                 name: "IX_Product_ApplicationUserId",
                 table: "Product",
                 column: "ApplicationUserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ProductOrder_OrderId",
+                table: "ProductOrder",
+                column: "OrderId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ProductOrder_ProductId",
+                table: "ProductOrder",
+                column: "ProductId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -323,19 +335,19 @@ namespace EStore.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "ChosenProduct");
+                name: "PaymentType");
+
+            migrationBuilder.DropTable(
+                name: "ProductOrder");
+
+            migrationBuilder.DropTable(
+                name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "Order");
 
             migrationBuilder.DropTable(
-                name: "PaymentType");
-
-            migrationBuilder.DropTable(
                 name: "Product");
-
-            migrationBuilder.DropTable(
-                name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");

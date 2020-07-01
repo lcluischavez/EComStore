@@ -8,9 +8,14 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using EStore.Data;
 using EStore.Models;
+using System.IO;
+
+
+using EStore.Models.ViewModels;
 
 namespace EStore.Controllers
 {
+
     public class ProductsController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -75,26 +80,67 @@ namespace EStore.Controllers
         }
 
 
+
         // POST: Products/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create(Product product)
+        public async Task<ActionResult> Create(ProductViewModel productViewModel)
         {
+
             try
             {
                 var user = await GetCurrentUserAsync();
-                product.ApplicationUserId = user.Id;
+                var uploadPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\images");
+                var fileName = Guid.NewGuid().ToString() + productViewModel.ImagePath;
+                using (var fileStream = new FileStream(Path.Combine(uploadPath, fileName), FileMode.Create))
+                {
+                    await productViewModel.File.CopyToAsync(fileStream);
+                }
+                var productInstance = new Product
+                {
 
-                _context.Product.Add(product);
+                    Name = productViewModel.Name,
+                    Description = productViewModel.Description,
+                    ImagePath = fileName,
+                    Cost = productViewModel.Cost,
+                    IsSold = productViewModel.IsSold,
+                    ApplicationUserId = user.Id
+                };
+                _context.Product.Add(productInstance);
                 await _context.SaveChangesAsync();
 
                 return RedirectToAction(nameof(Index));
             }
-            catch
+            catch (Exception ex)
             {
                 return View();
             }
         }
+
+
+
+
+
+
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public async Task<ActionResult> Create(Product product)
+        //{
+        //    try
+        //    {
+        //        var user = await GetCurrentUserAsync();
+        //        product.ApplicationUserId = user.Id;
+
+        //        _context.Product.Add(product);
+        //        await _context.SaveChangesAsync();
+
+        //        return RedirectToAction(nameof(Index));
+        //    }
+        //    catch
+        //    {
+        //        return View();
+        //    }
+        //}
 
 
 
