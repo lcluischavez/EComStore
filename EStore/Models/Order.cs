@@ -14,6 +14,7 @@ namespace EStore.Models
         [Required]
         public int ChosenProductId { get; set; }
         public DateTime DateCreated { get; set; }
+        public List<ProductOrder> ProductOrder { get; set; }
         public bool IsComplete { get; set; }
         public string ApplicationUserId { get; set; }
         [Display(Name = "User")]

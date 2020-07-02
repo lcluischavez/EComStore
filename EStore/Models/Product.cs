@@ -16,7 +16,7 @@ namespace EStore.Models
         public string Quantity { get; set; }
         [Required]
         public string Cost { get; set; }
-
+        public bool IsSold { get; set; }
 
         [Display(Name = "Image Url")]
         public string ImagePath { get; set; }
