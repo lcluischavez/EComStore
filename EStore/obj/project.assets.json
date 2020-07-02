@@ -8951,19 +8951,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Coffey\\.nuget\\packages\\": {}
+    "C:\\Users\\Luis Chavez\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Coffey\\source\\repos\\EComStore\\EStore\\EStore.csproj",
+      "projectUniqueName": "C:\\Users\\Luis Chavez\\Desktop\\workspace\\EStore\\EStore\\EStore.csproj",
       "projectName": "EStore",
-      "projectPath": "C:\\Users\\Coffey\\source\\repos\\EComStore\\EStore\\EStore.csproj",
-      "packagesPath": "C:\\Users\\Coffey\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Coffey\\source\\repos\\EComStore\\EStore\\obj\\",
+      "projectPath": "C:\\Users\\Luis Chavez\\Desktop\\workspace\\EStore\\EStore\\EStore.csproj",
+      "packagesPath": "C:\\Users\\Luis Chavez\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Luis Chavez\\Desktop\\workspace\\EStore\\EStore\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Coffey\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Luis Chavez\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [

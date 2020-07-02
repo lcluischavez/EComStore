@@ -15,7 +15,7 @@ namespace EStore.Data
         {
         }
         public DbSet<ApplicationUser> ApplicationUser { get; set; }
-        public DbSet<ChosenProduct> ChosenProduct { get; set; }
+        public DbSet<ProductOrder> ProductOrder { get; set; }
         public DbSet<Order> Order { get; set; }
         public DbSet<PaymentType> PaymentType { get; set; }
         public DbSet<Product> Product { get; set; }

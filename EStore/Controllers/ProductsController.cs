@@ -56,7 +56,7 @@ namespace EStore.Controllers
             var product = await _context.Product
                //.Where(p => p.UserId == user.Id)
                .Include(p => p.ApplicationUser)
-               .FirstOrDefaultAsync(p => p.Id == id);
+               .FirstOrDefaultAsync(p => p.ProductId == id);
 
             if (product == null)
             {
@@ -101,7 +101,7 @@ namespace EStore.Controllers
         // GET: Products/Edit/1
         public async Task<ActionResult> Edit(int id)
         {
-            var product = await _context.Product.FirstOrDefaultAsync(p => p.Id == id);
+            var product = await _context.Product.FirstOrDefaultAsync(p => p.ProductId == id);
             var loggedInUser = await GetCurrentUserAsync();
 
             if (product.ApplicationUserId != loggedInUser.Id)
@@ -141,7 +141,7 @@ namespace EStore.Controllers
             var loggedInUser = await GetCurrentUserAsync();
             var product = await _context.Product
                 .Include(p => p.ApplicationUser)
-                .FirstOrDefaultAsync(c => c.Id == id);
+                .FirstOrDefaultAsync(c => c.ProductId == id);
 
             if (product == null)
             {
