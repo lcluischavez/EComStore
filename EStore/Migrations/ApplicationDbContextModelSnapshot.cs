@@ -129,7 +129,7 @@ namespace EStore.Migrations
 
             modelBuilder.Entity("EStore.Models.Order", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("OrderId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
@@ -146,7 +146,7 @@ namespace EStore.Migrations
                     b.Property<bool>("IsComplete")
                         .HasColumnType("bit");
 
-                    b.HasKey("Id");
+                    b.HasKey("OrderId");
 
                     b.HasIndex("ApplicationUserId");
 
@@ -197,6 +197,9 @@ namespace EStore.Migrations
                     b.Property<string>("ImagePath")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("IsSold")
+                        .HasColumnType("bit");
+
                     b.Property<string>("Quantity")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -206,6 +209,28 @@ namespace EStore.Migrations
                     b.HasIndex("ApplicationUserId");
 
                     b.ToTable("Product");
+                });
+
+            modelBuilder.Entity("EStore.Models.ProductOrder", b =>
+                {
+                    b.Property<int>("ProductOrderId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("OrderId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.HasKey("ProductOrderId");
+
+                    b.HasIndex("OrderId");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("ProductOrder");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -369,6 +394,21 @@ namespace EStore.Migrations
                     b.HasOne("EStore.Models.ApplicationUser", "ApplicationUser")
                         .WithMany("Products")
                         .HasForeignKey("ApplicationUserId");
+                });
+
+            modelBuilder.Entity("EStore.Models.ProductOrder", b =>
+                {
+                    b.HasOne("EStore.Models.Order", "Order")
+                        .WithMany("ProductOrder")
+                        .HasForeignKey("OrderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("EStore.Models.Product", "Product")
+                        .WithMany()
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
