@@ -207,6 +207,7 @@ namespace EStore.Migrations
                 {
                     ProductId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(nullable: false),
                     Description = table.Column<string>(nullable: true),
                     Quantity = table.Column<string>(nullable: false),
                     Cost = table.Column<string>(nullable: false),

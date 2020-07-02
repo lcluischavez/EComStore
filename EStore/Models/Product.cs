@@ -11,6 +11,8 @@ namespace EStore.Models
     {
         [Required]
         public int ProductId { get; set; }
+        [Required]
+        public string Name { get; set; }
         public string Description { get; set; }
         [Required]
         public string Quantity { get; set; }

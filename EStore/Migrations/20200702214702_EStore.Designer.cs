@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EStore.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20200702213457_EStore")]
+    [Migration("20200702214702_EStore")]
     partial class EStore
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -178,6 +178,10 @@ namespace EStore.Migrations
 
                     b.Property<bool>("IsSold")
                         .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Quantity")
                         .IsRequired()

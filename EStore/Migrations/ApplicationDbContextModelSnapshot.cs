@@ -177,6 +177,10 @@ namespace EStore.Migrations
                     b.Property<bool>("IsSold")
                         .HasColumnType("bit");
 
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Quantity")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
