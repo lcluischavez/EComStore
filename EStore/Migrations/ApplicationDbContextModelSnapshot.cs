@@ -174,6 +174,9 @@ namespace EStore.Migrations
                     b.Property<string>("ImagePath")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("IsSold")
+                        .HasColumnType("bit");
+
                     b.Property<string>("Quantity")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -366,7 +369,7 @@ namespace EStore.Migrations
             modelBuilder.Entity("EStore.Models.ProductOrder", b =>
                 {
                     b.HasOne("EStore.Models.Order", "Order")
-                        .WithMany()
+                        .WithMany("ProductOrder")
                         .HasForeignKey("OrderId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();

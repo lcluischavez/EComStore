@@ -210,6 +210,7 @@ namespace EStore.Migrations
                     Description = table.Column<string>(nullable: true),
                     Quantity = table.Column<string>(nullable: false),
                     Cost = table.Column<string>(nullable: false),
+                    IsSold = table.Column<bool>(nullable: false),
                     ImagePath = table.Column<string>(nullable: true),
                     ApplicationUserId = table.Column<string>(nullable: true)
                 },
