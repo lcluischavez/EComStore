@@ -10,13 +10,15 @@ namespace EStore.Models
     public class Product
     {
         [Required]
-        public int Id { get; set; }
+        public int ProductId { get; set; }
+        [Required]
+        public string Name { get; set; }
         public string Description { get; set; }
         [Required]
         public string Quantity { get; set; }
         [Required]
         public string Cost { get; set; }
-
+        public bool IsSold { get; set; }
 
         [Display(Name = "Image Url")]
         public string ImagePath { get; set; }
