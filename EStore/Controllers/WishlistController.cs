@@ -76,7 +76,7 @@ namespace EStore.Controllers
             return View();
         }
 
-        // POST: Orders/Create
+        // POST: Wishlist/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create(int id, ProductOrder productOrder)
@@ -218,7 +218,7 @@ namespace EStore.Controllers
             }
         }
 
-        // POST: Orders/Delete/5
+        // POST: Wishlist/Delete/5
         //[HttpPost]
         //[ValidateAntiForgeryToken]
         //public async Task<ActionResult> Delete()
