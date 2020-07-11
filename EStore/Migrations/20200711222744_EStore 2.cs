@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace EStore.Migrations
 {
-    public partial class EStore : Migration
+    public partial class EStore2 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -227,6 +227,27 @@ namespace EStore.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Wishlist",
+                columns: table => new
+                {
+                    WishlistId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ChosenProductId = table.Column<int>(nullable: false),
+                    DateCreated = table.Column<DateTime>(nullable: false),
+                    ApplicationUserId = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Wishlist", x => x.WishlistId);
+                    table.ForeignKey(
+                        name: "FK_Wishlist_AspNetUsers_ApplicationUserId",
+                        column: x => x.ApplicationUserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "ProductOrder",
                 columns: table => new
                 {
@@ -315,6 +336,11 @@ namespace EStore.Migrations
                 name: "IX_ProductOrder_ProductId",
                 table: "ProductOrder",
                 column: "ProductId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Wishlist_ApplicationUserId",
+                table: "Wishlist",
+                column: "ApplicationUserId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -339,6 +365,9 @@ namespace EStore.Migrations
 
             migrationBuilder.DropTable(
                 name: "ProductOrder");
+
+            migrationBuilder.DropTable(
+                name: "Wishlist");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
