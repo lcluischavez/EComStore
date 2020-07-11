@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EStore.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20200702220010_EStore 4")]
-    partial class EStore4
+    [Migration("20200707215540_EStore")]
+    partial class EStore
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
