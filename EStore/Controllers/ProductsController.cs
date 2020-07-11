@@ -35,11 +35,11 @@ namespace EStore.Controllers
                 .Include(tdi => tdi.ApplicationUser)
                 .ToListAsync();
 
-            //if (searchString != null)
-            //{
-            //    var filteredProducts = _context.Product.Where(s => s.Make.Contains(searchString) || s.Model.Contains(searchString));
-            //    return View(filteredProducts);
-            //};
+            if (searchString != null)
+            {
+                var filteredProducts = _context.Product.Where(s => s.Name.Contains(searchString) || s.Description.Contains(searchString));
+                return View(filteredProducts);
+            };
 
             return View(products);
         }
