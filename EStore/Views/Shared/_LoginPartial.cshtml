@@ -6,7 +6,7 @@
         @if (SignInManager.IsSignedIn(User))
         {
 
-            <li class="searchBar">
+            <li @*class="searchBar"*@>
                 <form asp-controller="Products" asp-action="Index">
                     <input id="Searchy" type="text" name="searchString" placeholder="Search Products" aria-label="Search" asp-controller="Productss" asp-action="Index">
                 </form>
@@ -22,7 +22,7 @@
         }
         else
         {
-            <li class="searchBar">
+            <li @*class="searchBar"*@>
                 <form asp-controller="Products" asp-action="Index">
                     <input id="Searchy" type="text" name="searchString" placeholder="Search Products" aria-label="Search" asp-controller="Productss" asp-action="Index">
                 </form>
