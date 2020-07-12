@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using EStore.Data;
 using EStore.Models;
-using EStore.Models.OrderViewModels;
+using EStore.Models.WishlistViewModels;
 
 namespace EStore.Controllers
 {
@@ -32,7 +32,7 @@ namespace EStore.Controllers
         {
             var user = await GetCurrentUserAsync();
 
-            var applicationDbContext = _context.Order
+            var applicationDbContext = _context.Wishlist
 
              .Include(o => o.ApplicationUser)
                 .Where(o => o.ApplicationUserId == user.Id || user.IsAdmin == true);
@@ -46,23 +46,23 @@ namespace EStore.Controllers
         {
             var user = await GetCurrentUserAsync();
 
-            var incompleteOrder = await _context.Order
-                .Where(o => o.ApplicationUserId == user.Id && o.OrderId == id)
+            var incompleteWishlist = await _context.Wishlist
+                .Where(o => o.ApplicationUserId == user.Id && o.WishlistId == id)
 
                     .Include(o => o.ApplicationUser)
-                    .Include(o => o.ProductOrder)
+                    .Include(o => o.ProductWishlist)
                         .ThenInclude(po => po.Product)
             .FirstOrDefaultAsync();
-            if (incompleteOrder != null)
+            if (incompleteWishlist != null)
             {
-                var orderDetailViewModel = new OrderDetailViewModel();
-                orderDetailViewModel.LineItems = incompleteOrder.ProductOrder.GroupBy(po => po.ProductId)
-                        .Select(p => new OrderLineItem
+                var wishlistDetailViewModel = new WishlistDetailViewModel();
+                wishlistDetailViewModel.LineItems = incompleteWishlist.ProductWishlist.GroupBy(po => po.ProductId)
+                        .Select(p => new WishlistLineItem
                         {
                             Product = p.FirstOrDefault().Product,
                         });
-                orderDetailViewModel.Order = incompleteOrder;
-                return View(orderDetailViewModel);
+                wishlistDetailViewModel.Wishlist = incompleteWishlist;
+                return View(wishlistDetailViewModel);
             }
             else
             {
@@ -79,31 +79,31 @@ namespace EStore.Controllers
         // POST: Wishlist/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create(int id, ProductOrder productOrder)
+        public async Task<ActionResult> Create(int id, ProductWishlist productWishlist)
         {
             try
             {
-                var selectedProductOrder = _context.ProductOrder.FirstOrDefault(po => po.ProductId != 0);
+                var selectedProductWishlist = _context.ProductWishlist.FirstOrDefault(po => po.ProductId != 0);
                 var user = await GetCurrentUserAsync();
-                var userOrder = _context.Order.FirstOrDefault(o => o.ApplicationUser.Id == user.Id && o.IsComplete == false);
+                var userWishlist = _context.Wishlist.FirstOrDefault(o => o.ApplicationUser.Id == user.Id );
                 var chosenProduct = _context.Product.FirstOrDefault(p => p.ApplicationUserId == user.Id);
-                if (userOrder == null)
+                if (userWishlist == null)
                 {
-                    var newOrder = new Order
+                    var newWishlist = new Wishlist
                     {
                         IsComplete = false,
                         DateCreated = DateTime.Now,
                         ApplicationUserId = user.Id
                     };
-                    _context.Order.Add(newOrder);
+                    _context.Wishlist.Add(newWishlist);
                     await _context.SaveChangesAsync();
-                    int orderId = newOrder.OrderId;
-                    var newProduct = new ProductOrder
+                    int wishlistId = newWishlist.WishlistId;
+                    var newProduct = new ProductWishlist
                     {
-                        OrderId = orderId,
+                        WishlistId = wishlistId,
                         ProductId = id,
                     };
-                    _context.ProductOrder.Add(newProduct);
+                    _context.ProductWishlist.Add(newProduct);
                     await _context.SaveChangesAsync();
                     //if (chosenPainting.IsSold == false)
                     //{
@@ -113,40 +113,40 @@ namespace EStore.Controllers
                     //};
 
 
-                    return RedirectToAction("Details", "Orders", new { id = orderId });
+                    return RedirectToAction("Details", "Wishlists", new { id = wishlistId });
                 }
-                if (userOrder.IsComplete == true)
+                if (userWishlist.IsComplete == true)
                 {
-                    var newOrder = new Order
+                    var newWishlist = new Wishlist
                     {
                         IsComplete = false,
                         DateCreated = DateTime.Now,
                         ApplicationUserId = user.Id
                     };
-                    _context.Order.Add(newOrder);
+                    _context.Wishlist.Add(newWishlist);
                     await _context.SaveChangesAsync();
-                    int orderId = newOrder.OrderId;
-                    var newProduct = new ProductOrder
+                    int wishlistId = newWishlist.WishlistId;
+                    var newProduct = new ProductWishlist
                     {
-                        OrderId = orderId,
+                        WishlistId = wishlistId,
                         ProductId = id
 
                     };
-                    _context.ProductOrder.Add(newProduct);
+                    _context.ProductWishlist.Add(newProduct);
                     await _context.SaveChangesAsync();
-                    return RedirectToAction("Details", "Orders", new { id = orderId });
+                    return RedirectToAction("Details", "Wishlists", new { id = wishlistId });
                 }
                 else
                 {
-                    var newProductOrder = new ProductOrder
+                    var newProductWishlist = new ProductWishlist
                     {
-                        OrderId = userOrder.OrderId,
+                        WishlistId = userWishlist.WishlistId,
                         ProductId = id
 
                     };
-                    _context.ProductOrder.Add(newProductOrder);
+                    _context.ProductWishlist.Add(newProductWishlist);
                     await _context.SaveChangesAsync();
-                    return RedirectToAction("Details", "Orders", new { id = newProductOrder.OrderId });
+                    return RedirectToAction("Details", "Orders", new { id = newProductWishlist.WishlistId });
                 }
             }
             catch (Exception ex)
@@ -158,9 +158,9 @@ namespace EStore.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, Order order)
+        public async Task<IActionResult> Edit(int id, Wishlist wishlist)
         {
-            if (id != order.OrderId)
+            if (id != wishlist.WishlistId)
             {
                 return NotFound();
             }
@@ -171,10 +171,10 @@ namespace EStore.Controllers
                 {
 
 
-                    var userCurrentOrder = await _context.Order.Where(o => o.OrderId == id)
-                        .Include(o => o.ProductOrder).ThenInclude(o => o.Product).FirstOrDefaultAsync();
+                    var userCurrentWishlist = await _context.Wishlist.Where(o => o.WishlistId == id)
+                        .Include(o => o.ProductWishlist).ThenInclude(o => o.Product).FirstOrDefaultAsync();
 
-                    foreach (var p in userCurrentOrder.ProductOrder)
+                    foreach (var p in userCurrentWishlist.ProductWishlist)
                     {
                         if (p.Product.IsSold == false)
                         {
@@ -185,15 +185,15 @@ namespace EStore.Controllers
                     }
 
                     await _context.SaveChangesAsync();
-                    userCurrentOrder.IsComplete = true;
+                    userCurrentWishlist.IsComplete = true;
 
-                    _context.Update(userCurrentOrder);
+                    _context.Update(userCurrentWishlist);
                     await _context.SaveChangesAsync();
                     return RedirectToAction(nameof(Index));
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!OrderExists(order.OrderId))
+                    if (!WishlistExists(wishlist.WishlistId))
                     {
                         return NotFound();
                     }
@@ -206,15 +206,15 @@ namespace EStore.Controllers
                 return RedirectToAction("Edit", "Orders");
             }
 
-            ViewData["UserId"] = new SelectList(_context.ApplicationUser, "Id", "Id", order.ApplicationUserId);
-            return View(order);
+            ViewData["UserId"] = new SelectList(_context.ApplicationUser, "Id", "Id", wishlist.ApplicationUserId);
+            return View(wishlist);
         }
-        private async void DeletePaintingOrder(int orderId)
+        private async void DeletePaintingWishlist(int wishlistId)
         {
-            var paintingOrders = await _context.ProductOrder.Where(po => po.OrderId == orderId).ToListAsync();
-            foreach (var po in paintingOrders)
+            var paintingWishlists = await _context.ProductWishlist.Where(po => po.WishlistId == wishlistId).ToListAsync();
+            foreach (var po in paintingWishlists)
             {
-                _context.ProductOrder.Remove(po);
+                _context.ProductWishlist.Remove(po);
             }
         }
 
@@ -246,18 +246,18 @@ namespace EStore.Controllers
         //    }
         //}
 
-        private async Task DeletePaintingOrders(int orderId)
+        private async Task DeletePaintingWishlists(int wishlistId)
         {
-            var productOrders = await _context.ProductOrder.Where(po => po.OrderId == orderId).ToListAsync();
-            foreach (var po in productOrders)
+            var productWishlists = await _context.ProductWishlist.Where(po => po.WishlistId == wishlistId).ToListAsync();
+            foreach (var po in productWishlists)
             {
-                _context.ProductOrder.Remove(po);
+                _context.ProductWishlist.Remove(po);
             }
         }
 
-        private bool OrderExists(int id)
+        private bool WishlistExists(int id)
         {
-            return _context.Order.Any(e => e.OrderId == id);
+            return _context.Wishlist.Any(e => e.WishlistId == id);
         }
         private Task<ApplicationUser> GetCurrentUserAsync() => _userManager.GetUserAsync(HttpContext.User);
     }

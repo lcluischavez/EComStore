@@ -20,6 +20,8 @@ namespace EStore.Data
         public DbSet<PaymentType> PaymentType { get; set; }
         public DbSet<Product> Product { get; set; }
         public DbSet<Wishlist> Wishlist { get; set; }
+        public DbSet<ProductWishlist> ProductWishlist { get; set; }
+
     }
 }    
     

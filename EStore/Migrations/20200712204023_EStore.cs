@@ -227,6 +227,28 @@ namespace EStore.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Wishlist",
+                columns: table => new
+                {
+                    WishlistId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ChosenProductId = table.Column<int>(nullable: false),
+                    DateCreated = table.Column<DateTime>(nullable: false),
+                    IsComplete = table.Column<bool>(nullable: false),
+                    ApplicationUserId = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Wishlist", x => x.WishlistId);
+                    table.ForeignKey(
+                        name: "FK_Wishlist_AspNetUsers_ApplicationUserId",
+                        column: x => x.ApplicationUserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "ProductOrder",
                 columns: table => new
                 {
@@ -249,6 +271,32 @@ namespace EStore.Migrations
                         column: x => x.ProductId,
                         principalTable: "Product",
                         principalColumn: "ProductId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ProductWishlist",
+                columns: table => new
+                {
+                    ProductWishlistId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ProductId = table.Column<int>(nullable: false),
+                    WishlistId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ProductWishlist", x => x.ProductWishlistId);
+                    table.ForeignKey(
+                        name: "FK_ProductWishlist_Product_ProductId",
+                        column: x => x.ProductId,
+                        principalTable: "Product",
+                        principalColumn: "ProductId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_ProductWishlist_Wishlist_WishlistId",
+                        column: x => x.WishlistId,
+                        principalTable: "Wishlist",
+                        principalColumn: "WishlistId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -315,6 +363,21 @@ namespace EStore.Migrations
                 name: "IX_ProductOrder_ProductId",
                 table: "ProductOrder",
                 column: "ProductId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ProductWishlist_ProductId",
+                table: "ProductWishlist",
+                column: "ProductId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ProductWishlist_WishlistId",
+                table: "ProductWishlist",
+                column: "WishlistId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Wishlist_ApplicationUserId",
+                table: "Wishlist",
+                column: "ApplicationUserId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -341,6 +404,9 @@ namespace EStore.Migrations
                 name: "ProductOrder");
 
             migrationBuilder.DropTable(
+                name: "ProductWishlist");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
@@ -348,6 +414,9 @@ namespace EStore.Migrations
 
             migrationBuilder.DropTable(
                 name: "Product");
+
+            migrationBuilder.DropTable(
+                name: "Wishlist");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");

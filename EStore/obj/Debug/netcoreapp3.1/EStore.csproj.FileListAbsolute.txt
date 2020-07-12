@@ -390,3 +390,8 @@ C:\Users\Luis Chavez\Desktop\workspace\EStore\EStore\obj\Debug\netcoreapp3.1\Raz
 C:\Users\Luis Chavez\Desktop\workspace\EStore\EStore\obj\Debug\netcoreapp3.1\Razor\Views\Wishlists\Details.cshtml.g.cs
 C:\Users\Luis Chavez\Desktop\workspace\EStore\EStore\obj\Debug\netcoreapp3.1\Razor\Views\Wishlists\Edit.cshtml.g.cs
 C:\Users\Luis Chavez\Desktop\workspace\EStore\EStore\obj\Debug\netcoreapp3.1\Razor\Views\Wishlists\Index.cshtml.g.cs
+C:\Users\Luis Chavez\Desktop\workspace\EStore\EStore\obj\Debug\netcoreapp3.1\Razor\Views\ProductWishlist\Create.cshtml.g.cs
+C:\Users\Luis Chavez\Desktop\workspace\EStore\EStore\obj\Debug\netcoreapp3.1\Razor\Views\ProductWishlist\Delete.cshtml.g.cs
+C:\Users\Luis Chavez\Desktop\workspace\EStore\EStore\obj\Debug\netcoreapp3.1\Razor\Views\ProductWishlist\Details.cshtml.g.cs
+C:\Users\Luis Chavez\Desktop\workspace\EStore\EStore\obj\Debug\netcoreapp3.1\Razor\Views\ProductWishlist\Edit.cshtml.g.cs
+C:\Users\Luis Chavez\Desktop\workspace\EStore\EStore\obj\Debug\netcoreapp3.1\Razor\Views\ProductWishlist\Index.cshtml.g.cs
