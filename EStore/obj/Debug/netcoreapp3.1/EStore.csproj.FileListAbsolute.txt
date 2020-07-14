@@ -386,12 +386,7 @@ C:\Users\Luis Chavez\Desktop\workspace\EStore\EStore\obj\Debug\netcoreapp3.1\ESt
 C:\Users\Luis Chavez\Desktop\workspace\EStore\EStore\obj\Debug\netcoreapp3.1\staticwebassets\EStore.StaticWebAssets.Manifest.cache
 C:\Users\Luis Chavez\Desktop\workspace\EStore\EStore\obj\Debug\netcoreapp3.1\staticwebassets\EStore.StaticWebAssets.xml
 C:\Users\Luis Chavez\Desktop\workspace\EStore\EStore\obj\Debug\netcoreapp3.1\EStore.genruntimeconfig.cache
-C:\Users\Luis Chavez\Desktop\workspace\EStore\EStore\obj\Debug\netcoreapp3.1\Razor\Views\Wishlists\Create.cshtml.g.cs
-C:\Users\Luis Chavez\Desktop\workspace\EStore\EStore\obj\Debug\netcoreapp3.1\Razor\Views\Wishlists\Details.cshtml.g.cs
-C:\Users\Luis Chavez\Desktop\workspace\EStore\EStore\obj\Debug\netcoreapp3.1\Razor\Views\Wishlists\Edit.cshtml.g.cs
-C:\Users\Luis Chavez\Desktop\workspace\EStore\EStore\obj\Debug\netcoreapp3.1\Razor\Views\Wishlists\Index.cshtml.g.cs
-C:\Users\Luis Chavez\Desktop\workspace\EStore\EStore\obj\Debug\netcoreapp3.1\Razor\Views\ProductWishlist\Create.cshtml.g.cs
-C:\Users\Luis Chavez\Desktop\workspace\EStore\EStore\obj\Debug\netcoreapp3.1\Razor\Views\ProductWishlist\Delete.cshtml.g.cs
-C:\Users\Luis Chavez\Desktop\workspace\EStore\EStore\obj\Debug\netcoreapp3.1\Razor\Views\ProductWishlist\Details.cshtml.g.cs
-C:\Users\Luis Chavez\Desktop\workspace\EStore\EStore\obj\Debug\netcoreapp3.1\Razor\Views\ProductWishlist\Edit.cshtml.g.cs
-C:\Users\Luis Chavez\Desktop\workspace\EStore\EStore\obj\Debug\netcoreapp3.1\Razor\Views\ProductWishlist\Index.cshtml.g.cs
+C:\Users\Luis Chavez\Desktop\workspace\EStore\EStore\obj\Debug\netcoreapp3.1\Razor\Views\Wishlist\Create.cshtml.g.cs
+C:\Users\Luis Chavez\Desktop\workspace\EStore\EStore\obj\Debug\netcoreapp3.1\Razor\Views\Wishlist\Details.cshtml.g.cs
+C:\Users\Luis Chavez\Desktop\workspace\EStore\EStore\obj\Debug\netcoreapp3.1\Razor\Views\Wishlist\Edit.cshtml.g.cs
+C:\Users\Luis Chavez\Desktop\workspace\EStore\EStore\obj\Debug\netcoreapp3.1\Razor\Views\Wishlist\Index.cshtml.g.cs

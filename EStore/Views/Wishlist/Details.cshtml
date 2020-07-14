@@ -1,0 +1,139 @@
+﻿@*@model EStore.Models.Order
+
+    @{
+        ViewData["Title"] = "Details";
+    }
+
+    <h1>Details</h1>
+
+    <div>
+        <h4>Order</h4>
+        <hr />
+        <dl class="row">
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.ChosenProductId)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.ChosenProductId)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.DateCreated)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.DateCreated)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.IsComplete)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.IsComplete)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.ApplicationUser)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.ApplicationUser.Id)
+            </dd>
+        </dl>
+    </div>
+    <div>
+        <a asp-action="Edit" asp-route-id="@Model.OrderId">Edit</a> |
+        <a asp-action="Index">Back to List</a>
+    </div>*@
+
+
+@model EStore.Models.WishlistViewModels.WishlistDetailViewModel
+
+@using Microsoft.AspNetCore.Identity;
+
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+@{
+    ViewData["Title"] = "Details";
+}
+<h1>Shopping Cart</h1>
+
+<div class="wishlistDetails">
+
+    <hr />
+
+</div>
+
+<table class="table table-striped">
+    <thead class="thead-dark">
+        <tr>
+            <th>
+                Name
+            </th>
+            <th>
+                Description
+            </th>
+            <th>
+                Image
+            </th>
+            <th>
+                Cost
+            </th>
+
+            <th>
+                Sold
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+
+        @foreach (EStore.Models.WishlistViewModels.WishlistLineItem item in Model.LineItems)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(model => item.Product.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => item.Product.Description)
+                </td>
+                <td>
+                    <img src="~/images/@item.Product.ImagePath" style="max-height: 75px; max-width: 200px; padding:0px; margin:0 auto; padding-right:1vw;" />
+                </td>
+
+                <td>
+                    @Html.DisplayFor(model => item.Product.Cost)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Product.IsSold)
+                </td>
+                <td>
+                    <form asp-controller="PaintingWishlists" asp-action="Delete" asp-route-Id="@item.Product.ProductId" method="post">
+                        <input type="submit" class="btn btn-danger bg-danger border-danger" value="DELETE" />
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<form asp-controller="Wishlists" asp-action="Delete" method="post">
+    <input type="submit" class="btn btn-danger bg-danger border-danger" value="Cancel Wishlist" />
+</form>
+<hr />
+<form asp-controller="Paintings" asp-action="Index">
+    <input type="submit" class="btn btn-outline-info badge-secondary " value="Shop More" />
+</form>
+
+<hr />
+
+
+@if (@UserManager.GetUserAsync(User).Result.IsAdmin == false && Model.Wishlist.IsComplete == true)
+{
+    <h4>Wishlist is complete</h4>
+}
+else
+{
+    <form asp-controller="Orders" asp-action="Edit" asp-route-id="@Model.Wishlist.WishlistId">
+        <div class=" form-group">
+            <input type="hidden" asp-for="@Model.Wishlist.WishlistId" value="@Model.Wishlist.WishlistId" />
+            <input type="submit" class="btn btn-outline-info badge-primary " value="Place Wishlist" />
+        </div>
+    </form>
+}
