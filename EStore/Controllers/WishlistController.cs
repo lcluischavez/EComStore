@@ -70,13 +70,13 @@ namespace EStore.Controllers
             }
         }
 
-        // GET: Wishlist/Create
+        // GET: Wishlists/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Wishlist/Create
+        // POST: Wishlists/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create(int id, ProductWishlist productWishlist)
@@ -85,7 +85,7 @@ namespace EStore.Controllers
             {
                 var selectedProductWishlist = _context.ProductWishlist.FirstOrDefault(po => po.ProductId != 0);
                 var user = await GetCurrentUserAsync();
-                var userWishlist = _context.Wishlist.FirstOrDefault(o => o.ApplicationUser.Id == user.Id );
+                var userWishlist = _context.Wishlist.FirstOrDefault(o => o.ApplicationUser.Id == user.Id && o.IsComplete == false);
                 var chosenProduct = _context.Product.FirstOrDefault(p => p.ApplicationUserId == user.Id);
                 if (userWishlist == null)
                 {
@@ -146,7 +146,7 @@ namespace EStore.Controllers
                     };
                     _context.ProductWishlist.Add(newProductWishlist);
                     await _context.SaveChangesAsync();
-                    return RedirectToAction("Details", "Orders", new { id = newProductWishlist.WishlistId });
+                    return RedirectToAction("Details", "Wishlists", new { id = newProductWishlist.WishlistId });
                 }
             }
             catch (Exception ex)

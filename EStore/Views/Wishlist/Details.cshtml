@@ -52,7 +52,7 @@
 @{
     ViewData["Title"] = "Details";
 }
-<h1>Shopping Cart</h1>
+<h1>Wishlist</h1>
 
 <div class="wishlistDetails">
 
@@ -114,7 +114,7 @@
     </tbody>
 </table>
 <form asp-controller="Wishlists" asp-action="Delete" method="post">
-    <input type="submit" class="btn btn-danger bg-danger border-danger" value="Cancel Wishlist" />
+    <input type="submit" class="btn btn-danger bg-danger border-danger" value="Cancel Order" />
 </form>
 <hr />
 <form asp-controller="Paintings" asp-action="Index">
@@ -130,10 +130,10 @@
 }
 else
 {
-    <form asp-controller="Orders" asp-action="Edit" asp-route-id="@Model.Wishlist.WishlistId">
+    <form asp-controller="Wishlists" asp-action="Edit" asp-route-id="@Model.Wishlist.WishlistId">
         <div class=" form-group">
             <input type="hidden" asp-for="@Model.Wishlist.WishlistId" value="@Model.Wishlist.WishlistId" />
             <input type="submit" class="btn btn-outline-info badge-primary " value="Place Wishlist" />
         </div>
     </form>
-}
+}}

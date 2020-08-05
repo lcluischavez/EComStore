@@ -43,39 +43,41 @@
             <tbody>
                 @foreach (var item in Model)
                 {
-                    <tr>
-                        <td>
-                            <image src="@Html.DisplayFor(modelItem => item.ImagePath)" alt="Product Image Unavailable" width="340" max-height="250" />
-                        </td>
-                        <td class="text-light">
-                            @Html.DisplayFor(modelItem => item.Name)
-                        </td>
-                        <td class="text-light">
-                            @Html.DisplayFor(modelItem => item.Description)
-                        </td>
-                        <td class="text-light">
-                            @Html.DisplayFor(modelItem => item.Quantity)
-                        </td>
-                        <td class="text-light">
-                            @Html.DisplayFor(modelItem => item.Cost)
-                        </td>
-                        <td>
-                            <a asp-action="Edit" asp-route-id="@item.ProductId">Edit</a> |
-                            <a asp-action="Details" asp-route-id="@item.ProductId">Details</a> |
-                            <a asp-action="Delete" asp-route-id="@item.ProductId">Delete</a>
-                        </td>
-                        <td>
-                            <form asp-controller="Orders" asp-action="Create" asp-route-id="@item.ProductId">
-                                <input type="submit" class="btn btn-primary bg-primary border-primary" value="Add to Order" />
-
-                            </form>
-
-                        </td>
-
-
-                    </tr>
+                <tr>
+                    <td>
+                        <image src="@Html.DisplayFor(modelItem => item.ImagePath)" alt="Product Image Unavailable" width="340" max-height="250" />
+                    </td>
+                    <td class="text-light">
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td class="text-light">
+                        @Html.DisplayFor(modelItem => item.Description)
+                    </td>
+                    <td class="text-light">
+                        @Html.DisplayFor(modelItem => item.Quantity)
+                    </td>
+                    <td class="text-light">
+                        @Html.DisplayFor(modelItem => item.Cost)
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.ProductId">Edit</a> |
+                        <a asp-action="Details" asp-route-id="@item.ProductId">Details</a> |
+                        <a asp-action="Delete" asp-route-id="@item.ProductId">Delete</a>
+                    </td>
+                    <td>
+                        <form asp-controller="Orders" asp-action="Create" asp-route-id="@item.ProductId">
+                            <input type="submit" class="btn btn-primary bg-primary border-primary" value="Add to Order" />
+                        </form>
+                    </td>
+                    <td>
+                        <form asp-controller="Wishlist" asp-action="Create" asp-route-id="@item.ProductId">
+                            <input type="submit" class="btn btn-primary bg-primary border-primary" value="Add to Wishlist" />
+                        </form>
+                    </td>
+                </tr>
                 }
             </tbody>
         </table>
     </div>
 
+ 
